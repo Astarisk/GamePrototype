@@ -7,6 +7,8 @@ class Player:
     PLAYERWIDTH = 24
     PLAYERHEIGHT = 32
 
+    PLAYER_SPEED = 2
+
     def __init__(self):
         self.sprites = []
         self.sheet = SpriteSheet("res/player/base-m-light.png")

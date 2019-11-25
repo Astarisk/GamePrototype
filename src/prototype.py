@@ -1,6 +1,3 @@
-import pyglet
-
-
 def main2():
     from gamewindow import GameWindow
     gw = GameWindow(vsync=False)
