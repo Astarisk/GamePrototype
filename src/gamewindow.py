@@ -1,10 +1,10 @@
-import pyglet
 from map import Map
 from camera import FollowCam
-from pyglet.window import key
 from player import Player
 
+import pyglet
 from pyglet import gl
+from pyglet.window import key
 
 
 class GameWindow(pyglet.window.Window):
@@ -40,14 +40,16 @@ class GameWindow(pyglet.window.Window):
 
     def run(self):
         while self.alive:
+            # Tick the clock at the end of the frame.
+            dt = pyglet.clock.tick()
+
             event = self.dispatch_events()
             if event:
                 print(event)
 
-            self.on_draw()
+            #print(dt)
+            self.on_draw(dt=dt)
 
-            # Tick the clock at the end of the frame.
-            pyglet.clock.tick()
 
     def on_close(self):
         self.alive = False
@@ -61,7 +63,7 @@ class GameWindow(pyglet.window.Window):
     def on_key_press(self, symbol, modifiers):
         self.keys[symbol] = True
 
-    def on_draw(self):
+    def on_draw(self, dt=0.0):
         # Clear the window
         self.clear()
 
@@ -69,37 +71,29 @@ class GameWindow(pyglet.window.Window):
 
         # Draw sprites
         self.map.draw()
-        self.player.draw()
+        self.player.draw(dt)
 
         # GUI elements
         self.fps_display.draw()
 
-        # since i'm doing my own run for window i need to flip the buffer
+        # since i'm doing my own run for window I need to flip the buffer
         self.flip()
 
     def update(self, dt):
         interval = Player.PLAYER_SPEED * dt
+        xt = 0
+        yt = 0
+
         if key.A in self.keys:
-            #self.cam.translate(int(-32 * Player.PLAYER_SPEED * dt), 0)
-            self.player.move_player(-32 * interval, 0)
-
-            self.cam.x = int(self.player.sprite.x + -GameWindow.WINWIDTH/2)
-            self.cam.y = int(self.player.sprite.y + -GameWindow.WINHEIGHT/2)
+            xt = -32
         if key.D in self.keys:
-            #self.cam.translate(int(32 * interval), 0)
-            self.player.move_player(32 * interval, 0)
-
-            self.cam.x = int(self.player.sprite.x + -GameWindow.WINWIDTH/2)
-            self.cam.y = int(self.player.sprite.y + -GameWindow.WINHEIGHT/2)
+            xt = 32
         if key.W in self.keys:
-           # self.cam.translate(0, int(32 * interval * dt))
-            self.player.move_player(0, 32 * interval)
-
-            self.cam.x = int(self.player.sprite.x + -GameWindow.WINWIDTH/2)
-            self.cam.y = int(self.player.sprite.y + -GameWindow.WINHEIGHT/2)
+            yt = 32
         if key.S in self.keys:
-            #self.cam.translate(0, int(-32 * interval))
-            self.player.move_player(0, -32 * interval)
+            yt = -32
 
-            self.cam.x = int(self.player.sprite.x + -GameWindow.WINWIDTH/2)
-            self.cam.y = int(self.player.sprite.y + -GameWindow.WINHEIGHT/2)
+        self.player.move_player(int(xt * interval), int(yt * interval))
+
+        self.cam.x = int(self.player.sprite.x + -GameWindow.WINWIDTH/2)
+        self.cam.y = int(self.player.sprite.y + -GameWindow.WINHEIGHT/2)

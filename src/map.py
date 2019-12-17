@@ -54,7 +54,7 @@ class Map:
 
     def draw(self):
         glMatrixMode(GL_MODELVIEW)
-        glLoadIdentity()
+        #glLoadIdentity()
 
         # Tranformations for the tiles after here.
 
