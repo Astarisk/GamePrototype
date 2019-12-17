@@ -44,12 +44,8 @@ class GameWindow(pyglet.window.Window):
             dt = pyglet.clock.tick()
 
             event = self.dispatch_events()
-            if event:
-                print(event)
 
-            #print(dt)
             self.on_draw(dt=dt)
-
 
     def on_close(self):
         self.alive = False

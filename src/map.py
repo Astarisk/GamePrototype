@@ -32,7 +32,7 @@ class Map:
 
     def __init__(self):
         self.tiles = OrderedDict()
-        self.sheet = SpriteSheet("res/Woodland_ground.png")
+        self.sheet = SpriteSheet("res/tile_spritesheet.png")
         self.grass_tiles = [144, 160, 176, 192, 208, 224, 240,
                             145, 161]
         self.sheet.strip_sheet(16, 16, 32, 32)
@@ -42,8 +42,6 @@ class Map:
 
         for x in range(Map.MAPWIDTH):
             for y in range(Map.MAPHEIGHT):
-                #tile_rect = pygame.Rect(x * Map.TILEWIDTH, y * Map.TILEHEIGHT, Map.TILEWIDTH, Map.TILEHEIGHT)
-
                 index = len(self.tiles)
 
                 from random import randint, seed

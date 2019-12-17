@@ -1,4 +1,4 @@
-def main2():
+def main():
     from gamewindow import GameWindow
     gw = GameWindow(vsync=False)
     gw.run()
@@ -6,4 +6,4 @@ def main2():
 
 
 if __name__ == '__main__':
-    main2()
+    main()

@@ -10,7 +10,6 @@ class Sprite(pyglet.sprite.Sprite):
         pass
 
 
-
 class AnimatedSprite(Sprite):
 
     def __init__(self):
